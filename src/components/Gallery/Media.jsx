@@ -5,7 +5,8 @@ import "react-medium-image-zoom/dist/styles.css";
 
 const Media = ({ settings }) => {
   const { title } = settings || [];
-  const { width, height, margin, padding, imgHeight, columns } = settings;
+  const { width, height, margin, padding, imgHeight, columns, borderRadius } =
+    settings;
 
   const GalleryStyle = {
     ...(height && { height: `${height}px` }),
@@ -15,6 +16,7 @@ const Media = ({ settings }) => {
     ...(margin && { margin: `${margin}px` }),
     ...(height && { height: `${imgHeight}` }),
     ...(padding && { padding: `${padding}px` }),
+    ...(borderRadius && { borderRadius: `${borderRadius}px` }),
   };
 
   return (
@@ -30,6 +32,7 @@ const Media = ({ settings }) => {
                 className="img-wrapper relative w-24 h-24 border border-gray-300 rounded shadow-md"
               >
                 <img
+                style={{borderRadius:borderRadius+'px'}}
                   src={image}
                   alt="Gallery"
                   className="w-full h-full object-cover rounded"

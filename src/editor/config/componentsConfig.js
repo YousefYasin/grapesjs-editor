@@ -56,11 +56,17 @@ const componentsConfig = [
             label: "Columns",
             name: "columns",
             options: [1, 2, 3, 4, 5].map((value) => ({ value, name: value })),
+            value: 4,
           },
           {
             type: "number",
             label: "Gallery height",
             name: "height",
+          },
+          {
+            type: "number",
+            label: "Image Border Radius",
+            name: "borderRadius",
           },
           {
             type: "select",
@@ -94,6 +100,7 @@ const componentsConfig = [
             columns: model?.getTrait("columns")?.get("value"),
             height: model?.getTrait("height")?.get("value"),
             imgHeight: model?.getTrait("imgHeight")?.get("value"),
+            borderRadius: model?.getTrait("borderRadius")?.get("value"),
           };
           root.render(<Media settings={settings} />);
         };

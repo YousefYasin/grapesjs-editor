@@ -29,7 +29,8 @@
   border-bottom: 2px solid #007bff;
 }
 
-.tab-content {
+.tab-content,
+.tab-content .gjs-one-bg {
   padding: 0;
   background: #302d2d;
 }
@@ -153,4 +154,8 @@
 .margin-group input {
   border-radius: 3px;
   border: 1px solid #3f444b;
+}
+
+.tab-content {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
 }

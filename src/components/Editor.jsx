@@ -15,7 +15,6 @@ const Editor = ({ componentsConfig }) => {
   useLayoutEffect(() => {
     if (!editorRef.current) {
       const editorInstance = initializeGrapesJS("gjs");
-      console.log(editorInstance.BlockManager.getAll());
 
       addCustomComponents(editorInstance, componentsConfig);
 
@@ -26,6 +25,7 @@ const Editor = ({ componentsConfig }) => {
       editorRef.current = null;
     };
   }, [componentsConfig]);
+  
   useEffect(() => {
     const editor = editorRef.current;
 

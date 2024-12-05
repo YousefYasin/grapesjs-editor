@@ -1,4 +1,6 @@
 import ReactDOM from "react-dom/client";
+import ReactDOMServer from "react-dom/server";
+
 import Media from "../../components/Gallery/Media";
 import PostFeed from "../../components/post/PostFeed";
 import Contact from "../../components/contact";
@@ -84,6 +86,9 @@ const componentsConfig = [
           ...commonTraits,
         ],
       },
+      toHTML() {
+        return this.get("staticHTML") || "";
+      },
     },
     view: {
       init() {
@@ -102,6 +107,14 @@ const componentsConfig = [
             imgHeight: model?.getTrait("imgHeight")?.get("value"),
             borderRadius: model?.getTrait("borderRadius")?.get("value"),
           };
+          const staticHTML = ReactDOMServer.renderToStaticMarkup(
+            <Media settings={settings} />
+          );
+
+          if (model.get("staticHTML") !== staticHTML) {
+            model.set("staticHTML", staticHTML);
+          }
+
           root.render(<Media settings={settings} />);
         };
         updateComponent();
@@ -138,6 +151,9 @@ const componentsConfig = [
           ...commonTraits,
         ],
       },
+      toHTML() {
+        return this.get("staticHTML") || "";
+      },
     },
     view: {
       init() {
@@ -153,9 +169,19 @@ const componentsConfig = [
             margin: model.getTrait("margin").get("value"),
             padding: model.getTrait("padding").get("value"),
           };
-          root.render(<PostFeed settings={settings} />);
+
+          const staticHTML = ReactDOMServer.renderToStaticMarkup(
+            <PostFeed model={model} settings={settings} />
+          );
+
+          if (model.get("staticHTML") !== staticHTML) {
+            model.set("staticHTML", staticHTML);
+          }
+00          root.render(<PostFeed settings={settings} />);
         };
         updateComponent();
+        this.listenTo(this.model, "change:attributes", updateComponent);
+        this.listenTo(this.model, "change:content", updateComponent);
         this.listenTo(this.model, "change:traits", updateComponent);
       },
     },
@@ -172,6 +198,9 @@ const componentsConfig = [
         attributes: { class: "contact-form" },
         traits: commonTraits,
       },
+      toHTML() {
+        return this.get("staticHTML") || "";
+      },
     },
     view: {
       init() {
@@ -183,6 +212,13 @@ const componentsConfig = [
             width: model.getTrait("width").get("value"),
             height: model.getTrait("height").get("value"),
           };
+          // Update staticHTML for the block
+          const staticHTML = ReactDOMServer.renderToStaticMarkup(
+            <Contact settings={settings} />
+          );
+          if (model.get("staticHTML") !== staticHTML) {
+            model.set("staticHTML", staticHTML);
+          }
           root.render(<Contact settings={settings} />);
         };
         updateComponent();

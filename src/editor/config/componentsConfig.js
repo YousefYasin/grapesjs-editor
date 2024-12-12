@@ -87,7 +87,7 @@ const componentsConfig = [
         ],
       },
       toHTML() {
-        return this.get("staticHTML") || "";
+        return this.view.el.innerHTML || "";
       },
     },
     view: {
@@ -152,7 +152,7 @@ const componentsConfig = [
         ],
       },
       toHTML() {
-        return this.get("staticHTML") || "";
+        return this.view.el.innerHTML || "";
       },
     },
     view: {
@@ -169,16 +169,9 @@ const componentsConfig = [
             margin: model.getTrait("margin").get("value"),
             padding: model.getTrait("padding").get("value"),
           };
-
-          const staticHTML = ReactDOMServer.renderToStaticMarkup(
-            <PostFeed model={model} settings={settings} />
-          );
-
-          if (model.get("staticHTML") !== staticHTML) {
-            model.set("staticHTML", staticHTML);
-          }
-00          root.render(<PostFeed settings={settings} />);
+          root.render(<PostFeed settings={settings} />);
         };
+
         updateComponent();
         this.listenTo(this.model, "change:attributes", updateComponent);
         this.listenTo(this.model, "change:content", updateComponent);
@@ -199,7 +192,7 @@ const componentsConfig = [
         traits: commonTraits,
       },
       toHTML() {
-        return this.get("staticHTML") || "";
+        return this.view.el.innerHTML || "";
       },
     },
     view: {
